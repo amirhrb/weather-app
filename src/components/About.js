@@ -7,7 +7,7 @@ const About = () => {
       <div className="relative min-w-fit w-1/2 mt-5 mx-2 rounded-lg overflow-hidden ">
         <div className="absolute w-full h-full -z-10 bg-primary-content"></div>
         <div className="p-2 pb-5 z-0">
-          <div className="avatar  animate-appear">
+          <div className="avatar animate-appear">
             <div className="w-20 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
               <img
                 src="https://avatars.githubusercontent.com/u/81120130?v=4"

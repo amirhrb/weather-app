@@ -5,9 +5,15 @@ import logger from "redux-logger";
 import weatherReducer from "./weather/DataReducer";
 import { composeWithDevTools } from "redux-devtools-extension";
 
+const middlewares = [thunk];
+
+if (process.env.NODE_ENV === `development`) {
+  console.log(process.env.NODE_ENV);
+  middlewares.push(logger);
+}
 const store = createStore(
   weatherReducer,
-  composeWithDevTools(applyMiddleware(logger, thunk))
+  composeWithDevTools(applyMiddleware(...middlewares))
 );
 
 export default store;
