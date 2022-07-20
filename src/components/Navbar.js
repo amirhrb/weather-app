@@ -1,26 +1,22 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { themeChange } from "theme-change";
 
 //components
 import Search from "./Search";
 
 const Navbar = () => {
-  //because themeChange works based on class===Activeclass for toggle so we loop on classes to
-  //know it is dark or light!
   const toggleRef = useRef();
-  const [theme, setTheme] = useState(null);
-  const findTheme = () => {
-    if ([...toggleRef.current.classList].some((e) => e === "ACTIVECLASS")) {
-      setTheme("winter");
-    } else {
-      setTheme("night");
-    }
-  };
+  const [value, setValue] = useState();
+  //when toggle is active it is true => dark mode
+  //so we check the value if is false => light mode
   useEffect(() => {
-    themeChange(false);
-    findTheme();
-  }, [toggleRef]);
+    if (localStorage.getItem("value"))
+      setValue(JSON.parse(localStorage.getItem("value")));
+  }, []);
+  useEffect(() => {
+    localStorage.setItem("value", JSON.stringify(value));
+    document.documentElement.dataset.theme = !value ? "winter" : "night";
+  }, [value]);
 
   //there is a bug when click About Link the dropdown stays up
   //lets get the element and set when clicked then click on document (hidees the dropdown)
@@ -61,16 +57,15 @@ const Navbar = () => {
             >
               <li>
                 <a>
-                  <span>
-                    {theme === "night" ? "Get lighter!" : "Get Dark!"}
-                  </span>
+                  <span>{value ? "Get lighter!" : "Get Dark!"}</span>
                   <input
                     ref={toggleRef}
                     type="checkbox"
+                    checked={value}
                     className="toggle"
-                    data-toggle-theme="winter,night"
-                    data-act-class="ACTIVECLASS"
-                    onChange={() => findTheme()}
+                    onChange={(e) => {
+                      setValue((prev) => e.target.checked);
+                    }}
                   />
                 </a>
               </li>
