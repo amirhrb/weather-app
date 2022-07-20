@@ -6,14 +6,16 @@ import weatherReducer from "./weather/DataReducer";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 const middlewares = [thunk];
-
 if (process.env.NODE_ENV === `development`) {
-  console.log(process.env.NODE_ENV);
   middlewares.push(logger);
 }
-const store = createStore(
-  weatherReducer,
-  composeWithDevTools(applyMiddleware(...middlewares))
-);
+const costumeApplier = () => {
+  if (process.env.NODE_ENV === `development`) {
+    return composeWithDevTools(applyMiddleware(...middlewares));
+  } else {
+    return applyMiddleware(...middlewares);
+  }
+};
+const store = createStore(weatherReducer, costumeApplier());
 
 export default store;
