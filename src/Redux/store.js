@@ -5,17 +5,15 @@ import logger from "redux-logger";
 import weatherReducer from "./weather/DataReducer";
 import { composeWithDevTools } from "redux-devtools-extension";
 
+const isDevMode = process.env.NODE_ENV === `development`;
 const middlewares = [thunk];
-if (process.env.NODE_ENV === `development`) {
+if (isDevMode) {
   middlewares.push(logger);
 }
-const costumeApplier = () => {
-  if (process.env.NODE_ENV === `development`) {
-    return composeWithDevTools(applyMiddleware(...middlewares));
-  } else {
-    return applyMiddleware(...middlewares);
-  }
-};
-const store = createStore(weatherReducer, costumeApplier());
+const customApplier = isDevMode
+  ? composeWithDevTools(applyMiddleware(...middlewares))
+  : applyMiddleware(...middlewares);
+
+const store = createStore(weatherReducer, customApplier);
 
 export default store;
