@@ -23,7 +23,7 @@ const MainPart = () => {
   return (
     <>
       <div
-        className="max-w-[800px] min-w-[150px] w-[90%] my-10 h-fit py-5
+        className="max-w-[800px] min-w-[150px] w-[90%] mt-3 mb-10 h-fit py-5
       flex flex-col items-center rounded-md overflow-hidden bg-cover bg-center "
         style={{
           backgroundImage: `url(${hotWet})`,
