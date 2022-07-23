@@ -5,12 +5,15 @@ const ErrorModal = () => {
   const toggle = useRef();
   const { error, errMessage } = useSelector((state) => state);
   useEffect(() => {
+    const toggleHandler = () => {
+      toggle.current.checked = false;
+      document.documentElement.removeEventListener("click", toggleHandler);
+    };
     if (error) {
       toggle.current.checked = true;
+    } else {
+      document.documentElement.addEventListener("click", toggleHandler);
     }
-    document.documentElement.addEventListener("click", () => {
-      toggle.current.checked = false;
-    });
   }, [error]);
   return (
     <div>
