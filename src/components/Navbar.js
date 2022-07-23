@@ -6,7 +6,7 @@ import Search from "./Search";
 
 const Navbar = () => {
   const toggleRef = useRef();
-  const [value, setValue] = useState();
+  const [value, setValue] = useState(false);
   //when toggle is active it is true => dark mode
   //so we check the value if is false => light mode
   useEffect(() => {
@@ -64,7 +64,7 @@ const Navbar = () => {
                     checked={value}
                     className="toggle"
                     onChange={(e) => {
-                      setValue((prev) => e.target.checked);
+                      setValue((prev) => !prev);
                     }}
                   />
                 </a>
@@ -84,7 +84,7 @@ const Navbar = () => {
           </div>
         </div>
         <div className="navbar-center">
-          <Link className="btn btn-ghost normal-case text-xl" to="/home">
+          <Link className="btn btn-ghost normal-case text-xl " to="/home">
             weather
           </Link>
         </div>
