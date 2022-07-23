@@ -10,11 +10,14 @@ const Navbar = () => {
   //when toggle is active it is true => dark mode
   //so we check the value if is false => light mode
   useEffect(() => {
-    if (localStorage.getItem("value"))
-      setValue(JSON.parse(localStorage.getItem("value")));
+    const localValue = localStorage.getItem("value");
+    if (localValue && typeof localValue === Boolean) {
+      setValue(JSON.parse(localValue));
+    }
   }, []);
   useEffect(() => {
     localStorage.setItem("value", JSON.stringify(value));
+    console.log(value);
     document.documentElement.dataset.theme = !value ? "winter" : "night";
   }, [value]);
 
