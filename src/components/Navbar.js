@@ -10,19 +10,18 @@ const Navbar = () => {
   //when toggle is active it is true => dark mode
   //so we check the value if is false => light mode
   useEffect(() => {
-    const localValue = localStorage.getItem("value");
-    if (localValue && typeof localValue === Boolean) {
-      setValue(JSON.parse(localValue));
+    const localValue = JSON.parse(localStorage.getItem("value"));
+    if (localValue) {
+      setValue(localValue);
     }
   }, []);
   useEffect(() => {
     localStorage.setItem("value", JSON.stringify(value));
-    console.log(value);
     document.documentElement.dataset.theme = !value ? "winter" : "night";
   }, [value]);
 
   //there is a bug when click About Link the dropdown stays up
-  //lets get the element and set when clicked then click on document (hidees the dropdown)
+  //lets get the element and set when clicked then click on document (hides the dropdown)
   const dropRef = useRef();
   const aboutRef = useRef();
 
